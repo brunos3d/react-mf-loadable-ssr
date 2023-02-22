@@ -26,16 +26,12 @@ export type RenderAndExtractContextFunction = (options: RenderAndExtractContextO
 export async function renderAndExtractContext({ chunkExtractor }: RenderAndExtractContextOptions): Promise<RenderAndExtractContextResult> {
   const styleSheet = new ServerStyleSheet();
 
-  console.log('started extracting markup');
-
   const markup = renderToString(styleSheet.collectStyles(chunkExtractor.collectChunks(<App />)));
-
-  console.log('markup', markup);
 
   await federatedChunkExtractor.collectMfChunks(chunkExtractor);
 
   const mfStyleTags = federatedChunkExtractor.getStyleTags();
-  const mfScriptTags = federatedChunkExtractor.getScriptTags({}, { loadMode: 'async' });
+  const mfScriptTags = federatedChunkExtractor.getScriptTags({}, { loadMode: 'defer' });
 
   const linkTags = chunkExtractor.getLinkTags();
 

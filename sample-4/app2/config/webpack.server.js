@@ -11,7 +11,7 @@ const webpackConfig = {
   name: 'server',
   target: false,
   entry: {
-    serverAppEntrypoint: ['@babel/polyfill', path.resolve(__dirname, '../src/server/serverAppEntrypoint')],
+    serverAppEntrypoint: path.resolve(__dirname, '../src/server/serverAppEntrypoint'),
   },
   externals: {
     express: 'express',
@@ -22,11 +22,11 @@ const webpackConfig = {
     libraryTarget: 'commonjs-module',
   },
   plugins: [
+    ...moduleFederationPlugin.server,
+
     new LoadablePlugin({
       writeToDisk: true,
     }),
-
-    ...moduleFederationPlugin.server,
   ],
 };
 

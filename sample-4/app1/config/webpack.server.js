@@ -32,11 +32,11 @@ const webpackConfig = {
     ],
   },
   plugins: [
+    ...moduleFederationPlugin.server,
+
     new LoadablePlugin({
       writeToDisk: true,
     }),
-
-    ...moduleFederationPlugin.server,
   ],
 };
 
